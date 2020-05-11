@@ -4,13 +4,30 @@ import React, { Component } from 'react';
 // INPUT SHOULD COLLECT INFO, BUTTON SHOULD ADD THEM TO THE LIST
 
 class Passengers extends Component {
+state = {
+  passenger: ''
+}
+
+currentPassengers = (event,propertyName) =>{
+this.setState({
+  [propertyName]: event.target.value
+})
+}
+
+addPassengers = (event,propertyName) =>{
+  this.props.dispatch({type:'ADD PASSENGER'})
+  }
+
   render() {
     return (
       <div>
         <h2>Passengers</h2>
 
-        <input type="text" name="name" placeholder="Enter Name" />
-        <button>Add Passenger</button>
+        <input type="text" name="name"
+        onChange={(event) => this.currentPassengers(event,'name')}
+        
+        placeholder="Enter Name" />
+        <button onClick={this.addPassenger}>Add Passenger</button>
 
         <ul>PASSENGER LIST: GOES HERE</ul>
       
@@ -18,5 +35,8 @@ class Passengers extends Component {
     )
   }
 }
+const putReduxStateOnProps = (reduxState) => {(
+  reduxState
+)}
 
-export default Passengers;
+export default connect(putReduxStateOnProps) (Passengers);
